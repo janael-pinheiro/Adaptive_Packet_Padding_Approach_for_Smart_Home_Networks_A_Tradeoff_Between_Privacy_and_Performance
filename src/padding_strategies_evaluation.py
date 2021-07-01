@@ -131,19 +131,19 @@ class Experiment:
 			self.X = self.testData[['avg','std','total']].values	
 			self.y = self.testData['label'].values
 
-		for train_index, test_index in self.skf.split(self.X, self.y):
-			self.X_train, self.X_test = self.X[train_index], self.X[test_index]
-			self.y_train, self.y_test = self.y[train_index], self.y[test_index]
+			for train_index, test_index in self.skf.split(self.X, self.y):
+				self.X_train, self.X_test = self.X[train_index], self.X[test_index]
+				self.y_train, self.y_test = self.y[train_index], self.y[test_index]
 
-			for classifier in self.classifiers:
-				classifier.fit(self.X_train, self.y_train)
+				for classifier in self.classifiers:
+					classifier.fit(self.X_train, self.y_train)
 
-			for classifier in self.classifiers:
-				self.y_pred = classifier.predict(self.X_test)
-				self.accuracy, self.recall, self.f1Score = self.computeClassifierPerformance()
-				
-				self.updateClassifiersPerformance(classifier)
-				self.writeFile(classifier, filename, f"{self.paddingStrategy}_cross_validation.txt")
+				for classifier in self.classifiers:
+					self.y_pred = classifier.predict(self.X_test)
+					self.accuracy, self.recall, self.f1Score = self.computeClassifierPerformance()
+					
+					self.updateClassifiersPerformance(classifier)
+					self.writeFile(classifier, filename, f"{self.paddingStrategy}_cross_validation.txt")
 
 		self.saveClassifiersPerformanceToFile(f"{self.paddingStrategy}_cross_validation.txt")
 
