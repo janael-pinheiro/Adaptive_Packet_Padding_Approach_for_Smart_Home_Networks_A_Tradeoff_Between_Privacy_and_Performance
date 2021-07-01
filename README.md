@@ -11,7 +11,7 @@ Guide for conducting the experiments described in the paper "Adaptive Packet Pad
 
 Note: we use multiple datasets, one per day, to analyze the results with statistical methods such as hypothesis testing. CSV files with IoT traffic are located in the "Data/Raw" folder. It is necessary to decompress the files before running the experiments.  
 
-CSV files were converted from PCAP files made available by the authors of "A. Sivanathan, H. H. Gharakheili, F. Loi, A. Radford, C. Wijenayake, A. Vishwanath, and V. Sivaraman, 'Classifying IoT devices in smart environments using network traffic characteristics,' IEEE". We use Wireshark software to perform this conversion. Configure Wireshark to display the time from the beginning of the capture in seconds.
+CSV files were converted from PCAP files made available by the authors of "A. Sivanathan et al., 'Classifying IoT Devices in Smart Environments Using Network Traffic Characteristics,' in IEEE Transactions on Mobile Computing, vol. 18, no. 8, pp. 1745-1759, 1 Aug. 2019, doi: 10.1109/TMC.2018.2866249." We use Wireshark software to perform this conversion. Configure Wireshark to display the time from the beginning of the capture in seconds.
 
 If you use this code in a publication please cite the following paper:
 
