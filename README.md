@@ -17,12 +17,4 @@ If you use this code in a publication please cite the following paper:
 A. J. Pinheiro, P. Freitas de Araujo-Filho, J. de M. Bezerra and D. R. Campelo, "Adaptive Packet Padding Approach for Smart Home Networks: A Tradeoff Between Privacy and Performance," in IEEE Internet of Things Journal, 2021.
 
 @ARTICLE{9203848,  
-author={Pinheiro, Antônio J. and Freitas de Araujo-Filho, Paulo and de M. Bezerra, Jeandro and Campelo, Divanilson R.},\  
-journal={IEEE Internet of Things Journal},\
-title={Adaptive Packet Padding Approach for Smart Home Networks: A Tradeoff Between Privacy and Performance},\
-year={2021},\  
-volume={8},\  
-number={5},\  
-pages={3930-3938},\  
-doi={10.1109/JIOT.2020.3025988}\
-}
+author={Pinheiro, Antônio J. and Freitas de Araujo-Filho, Paulo and de M. Bezerra, Jeandro and Campelo, Divanilson R.},  journal={IEEE Internet of Things Journal},  title={Adaptive Packet Padding Approach for Smart Home Networks: A Tradeoff Between Privacy and Performance},  year={2021},  volume={8},  number={5},  pages={3930-3938},  doi={10.1109/JIOT.2020.3025988}}
