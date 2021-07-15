@@ -149,6 +149,10 @@ class Experiment:
 
 
 if __name__ == "__main__":
-	experiment = Experiment(paddingStrategy="MTU", groundTruthFolderFeatures="../Data/Processed/groundTruthFeatures", paddingFolderFeatures="../Data/Processed/paddingFeatures")
-	experiment.runTrainTestSplit()
-	experiment.runCrossValidation()
+	paddingStrategies = ["100", "500", "700", "900", "MTU", "Exponential", "Linear", "Mouse_elephant", "Random", "Random255"]
+
+	for strategy in paddingStrategies:
+		experiment = Experiment(paddingStrategy=strategy, groundTruthFolderFeatures="../Data/Processed/groundTruthFeatures", paddingFolderFeatures="../Data/Processed/paddingFeatures")
+		experiment.runTrainTestSplit()
+		experiment = Experiment(paddingStrategy=strategy, groundTruthFolderFeatures="../Data/Processed/groundTruthFeatures", paddingFolderFeatures="../Data/Processed/paddingFeatures")
+		experiment.runCrossValidation()
