@@ -6,6 +6,10 @@ import os
 import math
 import glob
 import codecs
+import json
+
+class invalidPaddingStrategy(Exception):
+    pass
 
 class ExistingPadding:
     def __init__(self):
@@ -139,6 +143,8 @@ class Experiment:
                 self.levelExecutor = paddingExecutor.random
             elif self.paddingStrategy == "Random255":
                 self.levelExecutor = paddingExecutor.random255
+            else:
+                raise invalidPaddingStrategy(f"{self.paddingStrategy} is an invalid padding strategy. Please specify one of the following options: Exponential, Linear, Mouse_elephant, MTU, Random, and Random255.")
 
             for line in self.inputFile.readlines():
                 try:
@@ -148,9 +154,16 @@ class Experiment:
                     self.writeFile(line, self.outputFile)
                 except ValueError:
                     self.writeFile(line, self.outputFile)
+class ExperimentConfiration:
+	def loadConfiguration(self, filepath):
+		return json.load(open(filepath, mode="r"))
 
 if __name__ == "__main__":
-    paddingStrategy = "MTU"
+    configurationFile = os.path.join("..","Data","Configuration","experimentConfiguration.json")
+    experimentConfiration = ExperimentConfiration()
+    setup = experimentConfiration.loadConfiguration(configurationFile)
+
+    paddingStrategy = setup["paddingStrategy"]
     padding = ExistingPadding()
     experiment = Experiment("../Data/Raw/", f"../Data/Processed/PaddingData/Existing/{paddingStrategy}", paddingStrategy, 5)
     experiment.readFiles(padding)

@@ -4,6 +4,7 @@ This script reads the CSV files, in which padding was applied or not, and genera
 import pandas as pd
 import os
 import glob
+import json
 
 class Features:
 	def __init__(self, csvFolder, outputFolder): 
@@ -94,11 +95,26 @@ class Features:
 
 		return self.features
 
-if __name__ == "__main__":
-	csvFolder = "../Data/Processed/PaddingData/Existing/MTU/"
-	outputFolder = "../Data/Processed/paddingFeatures/MTU/"
-	features = Features(csvFolder, outputFolder)
+class Experiment:
+	def loadConfiguration(self, filepath):
+		return json.load(open(filepath, mode="r"))
 
+if __name__ == "__main__":
+	configurationFile = os.path.join("..","Data","Configuration","experimentConfiguration.json")
+	experiment = Experiment()
+	setup = experiment.loadConfiguration(configurationFile)
+	
+	if setup["padding"] != "None" and setup["paddingStrategy"] != "None":
+		paddingStrategy = setup["paddingStrategy"]
+		csvFolder = os.path.join("../Data/Processed/PaddingData/", setup["padding"], f"{paddingStrategy}/")
+		outputFolder = os.path.join("../Data/Processed/paddingFeatures/", paddingStrategy)
+		
+	else:
+		csvFolder = "../Data/Raw/"
+		outputFolder = "../Data/Processed/groundTruthFeatures/"
+
+	features = Features(csvFolder, outputFolder)
+	
 	for filename in glob.glob(csvFolder+"*.csv"):
 		dataset = features.readDataset(filename)
 		dataset = features.encodeLabels(dataset)

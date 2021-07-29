@@ -7,6 +7,7 @@ import numpy as np
 from sklearn.metrics import accuracy_score, recall_score, f1_score
 from sklearn.model_selection import StratifiedKFold
 import os
+import json
 
 class Experiment:
 	def __init__(self, paddingStrategy, groundTruthFolderFeatures, paddingFolderFeatures):
@@ -147,12 +148,18 @@ class Experiment:
 
 		self.saveClassifiersPerformanceToFile(f"{self.paddingStrategy}_cross_validation.txt")
 
+class ExperimentConfiration:
+	def loadConfiguration(self, filepath):
+		return json.load(open(filepath, mode="r"))
 
 if __name__ == "__main__":
-	paddingStrategies = ["100", "500", "700", "900", "MTU", "Exponential", "Linear", "Mouse_elephant", "Random", "Random255"]
+	configurationFile = os.path.join("..","Data","Configuration","experimentConfiguration.json")
+	experimentConfiration = ExperimentConfiration()
+	setup = experimentConfiration.loadConfiguration(configurationFile)
 
-	for strategy in paddingStrategies:
-		experiment = Experiment(paddingStrategy=strategy, groundTruthFolderFeatures="../Data/Processed/groundTruthFeatures", paddingFolderFeatures="../Data/Processed/paddingFeatures")
-		experiment.runTrainTestSplit()
-		experiment = Experiment(paddingStrategy=strategy, groundTruthFolderFeatures="../Data/Processed/groundTruthFeatures", paddingFolderFeatures="../Data/Processed/paddingFeatures")
-		experiment.runCrossValidation()
+	strategy = setup["paddingStrategy"]
+	
+	experiment = Experiment(paddingStrategy=strategy, groundTruthFolderFeatures="../Data/Processed/groundTruthFeatures", paddingFolderFeatures="../Data/Processed/paddingFeatures")
+	experiment.runTrainTestSplit()
+	#experiment = Experiment(paddingStrategy=strategy, groundTruthFolderFeatures="../Data/Processed/groundTruthFeatures", paddingFolderFeatures="../Data/Processed/paddingFeatures")
+	#experiment.runCrossValidation()

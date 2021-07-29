@@ -5,6 +5,10 @@ from random import randint
 import os
 import glob
 import codecs
+import json
+
+class invalidPaddingLevel(Exception):
+    pass
 
 class AdaptivePadding:
     def __init__(self, threshold):
@@ -143,6 +147,8 @@ class Experiment:
                 self.levelExecutor = paddingExecutor.padding700
             elif self.paddingLevel == 900:
                 self.levelExecutor = paddingExecutor.padding900
+            else:
+                raise invalidPaddingLevel(f"{self.paddingLevel} is an invalid padding level. Please specify one of the following options: 100, 500, 700 or 900.")
 
             for line in self.inputFile.readlines():
                 try:
@@ -153,8 +159,16 @@ class Experiment:
                 except ValueError:
                     self.writeFile(line, self.outputFile)
 
+class ExperimentConfiration:
+	def loadConfiguration(self, filepath):
+		return json.load(open(filepath, mode="r"))
+
 if __name__ == "__main__":
-    paddingLevel = 900
+    configurationFile = os.path.join("..","Data","Configuration","experimentConfiguration.json")
+    experimentConfiration = ExperimentConfiration()
+    setup = experimentConfiration.loadConfiguration(configurationFile)
+
+    paddingLevel = int(setup["paddingStrategy"])
     padding = AdaptivePadding(paddingLevel)
     experiment = Experiment("../Data/Raw/", f"../Data/Processed/PaddingData/Proposal/{paddingLevel}", paddingLevel, 5)
     experiment.readFiles(padding)
