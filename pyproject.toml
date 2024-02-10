@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "adaptive-packet-padding-approach-for-smart-home-networks-a-tradeoff-between-privacy-and-performance"
+version = "0.1.0"
+description = ""
+authors = ["ajp"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+scikit-learn = "^1.4.0"
+pandas = "^2.2.0"
+numpy = "^1.26.4"
+imblearn = "^0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -6,9 +6,10 @@ from os.path import join, basename
 
 import pandas as pd
 
-from adaptive_padding.experiment.evaluation import Experiment
+from adaptive_padding.experiment.evaluation import ExperimentConfiguration
 from adaptive_padding.experiment.evaluation import PaddingExperiment
 from adaptive_padding.utils.utils import create_folder
+from adaptive_padding.constants import FolderPath
 
 
 class Feature:
@@ -135,16 +136,16 @@ class Feature:
 
 
 def main():
-	configuration_file = join("Data", "Configuration", "experiment_configuration.json")
-	setup = Experiment.load_configuration(configuration_file)
+	configuration_file = join(FolderPath.CONFIGURATION.value, "experiment_configuration.json")
+	setup = ExperimentConfiguration.load_configuration(configuration_file)
 
 	if setup["padding"] != "None" and setup["paddingStrategy"] != "None":
 		padding_strategy = setup["paddingStrategy"]
-		csv_folder = join("Data", "Processed", "PaddingData", setup["padding"], padding_strategy)
-		output_folder = join("Data", "Processed", "paddingFeatures", padding_strategy)
+		csv_folder = join(FolderPath.PADDING_DATA.value, setup["padding"], padding_strategy)
+		output_folder = join(FolderPath.PADDING_FEATURES.value, padding_strategy)
 	else:
-		csv_folder = join("Data", "Raw")
-		output_folder = join("Data", "Processed", "ground_truth_features")
+		csv_folder = FolderPath.RAW_DATA.value
+		output_folder = FolderPath.GROUND_TRUTH_FEATURES.value
 	create_folder(output_folder)
 
 	features = Feature(csv_folder, output_folder)

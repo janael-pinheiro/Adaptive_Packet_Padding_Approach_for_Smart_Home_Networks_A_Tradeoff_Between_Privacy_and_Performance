@@ -1,17 +1,17 @@
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.svm import SVC
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.tree import DecisionTreeClassifier
-import pandas as pd
+import os
+from os.path import join
+from typing import Tuple
+
 import numpy as np
+import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, recall_score, f1_score
 from sklearn.model_selection import StratifiedKFold
-import os
-import json
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import SVC
+from sklearn.tree import DecisionTreeClassifier
 
-from typing import Tuple
-from os.path import join
-
+from adaptive_padding.constants import FolderPath
 from adaptive_padding.experiment.evaluation import ExperimentConfiguration
 
 
@@ -159,12 +159,12 @@ class Experiment:
 
 
 if __name__ == "__main__":
-	configuration_file = os.path.join("Data", "Configuration", "experiment_configuration.json")
+	configuration_file = os.path.join(FolderPath.CONFIGURATION.value, "experiment_configuration.json")
 	experiment_configuration = ExperimentConfiguration()
 	setup = experiment_configuration.load_configuration(configuration_file)
 	strategy = setup["paddingStrategy"]
 	experiment = Experiment(
 		padding_strategy=strategy,
-		ground_truth_folder_features=join("Data", "Processed", "ground_truth_features"),
-		padding_folder_features=join("Data", "Processed", "padding_features"))
+		ground_truth_folder_features=join(FolderPath.GROUND_TRUTH_FEATURES.value),
+		padding_folder_features=join(FolderPath.PADDING_FEATURES.value))
 	experiment.run_train_test_split()
