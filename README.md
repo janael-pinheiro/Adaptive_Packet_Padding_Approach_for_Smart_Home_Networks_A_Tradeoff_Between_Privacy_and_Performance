@@ -16,6 +16,11 @@ Note: we use multiple datasets, one per day, to analyze the results with statist
 
 CSV files were converted from PCAP files made available by the authors of "A. Sivanathan et al., 'Classifying IoT Devices in Smart Environments Using Network Traffic Characteristics,' in IEEE Transactions on Mobile Computing, vol. 18, no. 8, pp. 1745-1759, 1 Aug. 2019, doi: 10.1109/TMC.2018.2866249." We use Wireshark software to perform this conversion. Configure Wireshark to display the time from the beginning of the capture in seconds.
 
+Inside project root folder:
+On Windows:
+set PYTHONPATH=%PYTHONPATH%;.
+
+
 If you use this code in a publication please cite the following paper:
 
 A. J. Pinheiro, P. Freitas de Araujo-Filho, J. de M. Bezerra and D. R. Campelo, "Adaptive Packet Padding Approach for Smart Home Networks: A Tradeoff Between Privacy and Performance," in IEEE Internet of Things Journal, 2021.
